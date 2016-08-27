@@ -1,0 +1,54 @@
+######################################################
+#
+# __Author__        =   Alireza Panna, NIH/NHLBI (IPL)
+# __status__        =   stable
+# __date__          =   8/2014
+# __version__       =   1.0
+# __to-do__         =   
+# __update-log__    =   
+######################################################
+
+Terminator = LF;
+
+cmd {
+    out "\$1";
+}
+
+setD {
+    out "\$1 %d";
+    #@init { out "\$1?"; in "%d"; }
+}
+
+getD {
+    out "\$1?";
+    in "%d";
+    ExtraInput = Ignore;
+}
+
+setF {
+    out "\$1%g";
+    #@init { out "\$1?"; in "%g"; }
+}
+
+getF {
+    out "\$1?";
+    in "%g";
+    ExtraInput = Ignore;
+}
+
+setF1 {
+    out "\$1%g\$2";
+# Initialize the output record during IOC boot
+	#@init { out "\$1?\$2"; in "%g"; }
+}
+
+getF1 {
+    out "\$1?\$2";
+    in "%g";
+    ExtraInput = Ignore;
+}
+
+
+
+
+

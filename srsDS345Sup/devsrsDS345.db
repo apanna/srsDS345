@@ -1,0 +1,282 @@
+###########################################################################
+#
+# __Author__        =   Alireza Panna, NIH/NHLBI (IPL)
+# __status__        =   stable
+# __date__          =   8/2014
+# __version__       =   1.0
+# __to-do__         =   1. some more records need to be added for completion
+# __update-log__    =
+############################################################################
+
+##############################
+# Instrument Specific commands
+##############################
+
+record(ao, "$(P):FREQ")
+{
+    field(DESC, "Set Waveform Frequency")
+    field(DTYP, "stream")
+    field(OUT, "@devsrsDS345.proto setF(FREQ) $(PORT) $(A)")
+    field(EGU, "Hz")
+    field(PREC, "6")
+    field(LINR, "SLOPE")
+    field(EOFF, "0")
+    field(ESLO, "1.0")
+    field(DRVL, "1e-6")
+    field(DRVH, "1.00e5")
+    field(LOPR, "0")
+    field(HOPR, "1.00e5")
+    field(FLNK, "$(P):FREQ_RBV")
+}
+record(ai, "$(P):FREQ_RBV")
+{
+    field(DESC, "Get Waveform Frequency")
+    field(DTYP, "stream")
+    field(INP, "@devsrsDS345.proto getF(FREQ) $(PORT) $(A)")
+    field(EGU, "Hz")
+    field(PREC, "6")
+    field(LINR, "SLOPE")
+    field(EOFF, "0")
+    field(ESLO, "1.0")
+    field(LOPR, "0")
+    field(HOPR, "1.00e5")
+    field(PINI, "YES")
+}
+
+record(ao, "$(P):VPP")
+{
+    field(DESC, "Set Peak-to-Peak Amplitude")
+    field(DTYP, "stream")
+    field(OUT, "@devsrsDS345.proto setF1(AMPL,VP) $(PORT) $(A)")
+    field(EGU, "Vpp")
+    field(PREC, "6")
+    field(LINR, "SLOPE")
+    field(EOFF, "0")
+    field(ESLO, "1.0")
+    field(DRVL, "1e-2")
+    field(DRVH, "10")
+    field(LOPR, "1e-2")
+    field(HOPR, "10")
+    field(FLNK, "$(P):VPP_RBV")
+}
+record(ai, "$(P):VPP_RBV")
+{
+    field(DESC, "Get Peak-to-Peak Amplitude")
+    field(DTYP, "stream")
+    field(INP, "@devsrsDS345.proto getF1(AMPL,VP) $(PORT) $(A)")
+    field(EGU, "Vpp")
+    field(PREC, "6")
+    field(LINR, "SLOPE")
+    field(EOFF, "0")
+    field(ESLO, "1.0")
+    field(LOPR, "1e-2")
+    field(HOPR, "10")
+    field(PINI, "YES")
+}
+
+# RMS is currently unused
+record(ao, "$(P):VRMS")
+{
+    field(DESC, "Set RMS Amplitude")
+    field(DTYP, "stream")
+    field(OUT, "@devsrsDS345.proto setF1(AMPL,VR) $(PORT) $(A)")
+    field(EGU, "Vrms")
+    field(PREC, "6")
+    field(FLNK, "$(P):VRMS_RBV")
+}
+record(ai, "$(P):VRMS_RBV")
+{
+    field(DESC, "Get RMS Amplitude")
+    field(DTYP, "stream")
+    field(INP, "@devsrsDS345.proto getF1(AMPL,VR) $(PORT) $(A)")
+    field(EGU, "Vrms")
+    field(PREC, "6")
+    field(PINI, "YES")
+}
+
+record(mbbo, "$(P):WAVEFORM")
+{
+    field(DESC, "Set Waveform Type")
+    field(DTYP, "stream")
+    field(OUT, "@devsrsDS345.proto setD(FUNC) $(PORT) $(A)")
+    field(ZRST, "SINE")
+    field(ONST, "SQUARE")
+    field(TWST, "TRIANGLE")
+    field(THST, "RAMP")
+    field(FRST, "NOISE")
+    field(FVST, "ARBITRARY")
+    field(FLNK, "$(P):WAVEFORM_RBV")
+}
+record(mbbi, "$(P):WAVEFORM_RBV")
+{
+    field(DESC, "Get Waveform Type")
+    field(DTYP, "stream")
+    field(INP, "@devsrsDS345.proto getD(FUNC) $(PORT) $(A)")
+    field(PINI, "YES")
+    #field(SCAN, "2 second")
+    field(ZRST, "SINE")
+    field(ONST, "SQUARE")
+    field(TWST, "TRIANGLE")
+    field(THST, "RAMP")
+    field(FRST, "NOISE")
+    field(FVST, "ARBITRARY")
+    field(PINI, "YES")
+}
+
+record(ao, "$(P):DCOFFSET")
+{
+    field(DESC, "Set DC Offset")
+    field(DTYP, "stream")
+    field(OUT, "@devsrsDS345.proto setF(OFFS) $(PORT) $(A)")
+    field(EGU, "V")
+    field(PREC, "6")
+    field(FLNK, "$(P):DCOFFSET_RBV")
+}
+record(ai, "$(P):DCOFFSET_RBV")
+{   
+    field(DESC, "Get DC Offset")
+    field(DTYP, "stream")
+    field(INP, "@devsrsDS345.proto getF(OFFS) $(PORT) $(A)")
+    field(PINI, "YES")
+}
+
+record(ao, "$(P):PHASE")
+{
+    field(DESC, "Set Waveform Phase")
+    field(DTYP, "stream")
+    field(OUT, "@devsrsDS345.proto setF(PHSE) $(PORT) $(A)")
+    field(EGU, "deg")
+    field(PREC, "4")
+    field(FLNK, "$(P):PHASE_RBV")
+}
+record(ai, "$(P):PHASE_RBV")
+{
+    field(DESC, "Get Waveform Phase")
+    field(DTYP, "stream")
+    field(INP, "@devsrsDS345.proto getF(PHSE) $(PORT) $(A)")
+    field(PINI, "YES")
+}
+
+record(bo, "$(P):ZEROPHASE")
+{
+    field(DESC, "Set Waveform Phase to 0 degrees")
+    field(DTYP, "stream")
+    field(OUT, "@devsrsDS345.proto cmd(PCLR) $(PORT) $(A)")
+}
+
+record(bo, "$(P):INV")
+{
+    field(DESC, "Set/Reset Output Inversion")
+    field(DTYP, "stream")
+    field(OUT, "@devsrsDS345.proto setD(INVT) $(PORT) $(A)")
+    field(PINI, "YES")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+}
+
+# PULSE CONTROL:
+record(bo, "$(P):MOD")
+{
+    field(DESC, "Set/Reset Modulation")
+    field(DTYP, "stream")
+    field(OUT, "@devsrsDS345.proto setD(MENA) $(PORT) $(A)")
+    field(PINI, "YES")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+}
+
+record(ao, "$(P):TRIG")
+{
+    field(DESC, "Trigger sweep/burst")
+    field(DTYP, "stream")
+    field(OUT, "@devsrsDS345.proto cmd(*TRG) $(PORT) $(A)")
+}
+
+record(mbbo, "$(P):TRIGSRC")
+{
+    field(DESC, "Set Trigger Source")
+    field(DTYP, "stream")
+    field(OUT, "@devsrsDS345.proto setD(TSRC) $(PORT) $(A)")
+    field(ZRST, "SINGLE")
+    #field(ONST, "INTERNAL RATE")
+    #field(TWST, "+ SLOPE EXTERNAL")
+    #field(THST, "- SLOPE EXTERNAL")
+    #field(FRST, "LINE")
+    field(FLNK, "$(P):TRIGSRC_RBV")
+}
+
+record(mbbi, "$(P):TRIGSRC_RBV")
+{
+    field(DESC, "Get Trigger Source")
+    field(DTYP, "stream")
+    field(INP, "@devsrsDS345.proto getD(TSRC) $(PORT) $(A)")
+    field(PINI, "YES")
+    #field(SCAN, "2 second")
+    field(ZRST, "SINGLE")
+    #field(ONST, "INTERNAL RATE")
+    #field(TWST, "+ SLOPE EXTERNAL")
+    #field(THST, "- SLOPE EXTERNAL")
+    #field(FRST, "LINE")
+}
+
+record(mbbo, "$(P):MODTYPE")
+{
+    field(DESC, "Set Modulation Type")
+    field(DTYP, "stream")
+    field(OUT, "@devsrsDS345.proto setD(MTYP) $(PORT) $(A)")
+    field(ZRST, "LIN SWEEP")
+    field(ONST, "LOG SWEEP")
+    field(TWST, "INTERNAL AM")
+    field(THST, "FM")
+    field(FRST, "PHI M")
+    field(FVST, "BURST")
+    field(FLNK, "$(P):MODTYPE_RBV")
+}
+
+record(mbbi, "$(P):MODTYPE_RBV")
+{
+    field(DESC, "Get Modulation Type")
+    field(DTYP, "stream")
+    field(INP, "@devsrsDS345.proto getD(MTYP) $(PORT) $(A)")
+    field(PINI, "YES")
+    #field(SCAN, "1 second")
+    field(ZRST, "LIN SWEEP")
+    field(ONST, "LOG SWEEP")
+    field(TWST, "INTERNAL AM")
+    field(THST, "FM")
+    field(FRST, "PHI M")
+    field(FVST, "BURST")
+}
+
+record(ao, "$(P):BURSTCT")
+{
+    field(DESC, "Set Burst Count")
+    field(DTYP, "stream")
+    field(OUT, "@devsrsDS345.proto setF(BCNT) $(PORT) $(A)")
+    field(FLNK, "$(P):BURSTCT_RBV")
+}
+
+record(ai, "$(P):BURSTCT_RBV")
+{
+    field(DESC, "Get Burst Count")
+    field(DTYP, "stream")
+    field(INP, "@devsrsDS345.proto getF(BCNT) $(PORT) $(A)")
+    field(PINI, "YES")
+    #field(SCAN, "1 second")
+}
+
+record(ao, "$(P):RATE")
+{
+    field(DESC, "Set Rate")
+    field(DTYP, "stream")
+    field(OUT, "@devsrsDS345.proto setF(RATE) $(PORT) $(A)")
+}
+
+record(ai, "$(P):RATE_RBV")
+{
+    field(DESC, "Get Rate")
+    field(DTYP, "stream")
+    field(INP, "@devsrsDS345.proto getF(RATE) $(PORT) $(A)")
+    field(PINI, "YES")
+    #field(SCAN, "1 second")
+}
