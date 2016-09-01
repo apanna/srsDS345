@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>DS345 Help</string>
+   <string>srsDS345-help</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="caFrame" name="caframe">
@@ -44,7 +44,7 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>6</pointsize>
+       <pointsize>4</pointsize>
        <weight>50</weight>
        <bold>false</bold>
       </font>
